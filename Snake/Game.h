@@ -1,13 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
-const int MATRIX_SIZE = 10;
+#include "SnakePart.h"
+const int MATRIX_SIZE = 15;
 
 class Game
 {
 private:
 	sf::RenderWindow window;
 	sf::RectangleShape matrix[MATRIX_SIZE][MATRIX_SIZE];
+	SnakePart head;
 
 	void processEvents();
 	void update();

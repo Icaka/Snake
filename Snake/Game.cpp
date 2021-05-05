@@ -17,6 +17,8 @@ Game::Game() : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "My snakw")
 			matrix[i][t].setPosition(sf::Vector2f(i * RECT_SIZE, t * RECT_SIZE));
 		}
 	}
+
+	head.setCoordinates(3, 3);
 }
 
 void Game::run()
@@ -55,7 +57,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key)
 
 void Game::update()
 {
-
+	matrix[head.getX()][head.getY()].setFillColor(sf::Color(153, 51, 153));
 }
 
 void Game::render()
