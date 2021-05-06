@@ -53,11 +53,37 @@ void Game::handlePlayerInput(sf::Keyboard::Key key)
 	{
 		window.close();
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		directionY = -1; // up
+		directionX = 0;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // right
+	{
+		directionX = 1;
+		directionY = 0;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left 
+	{
+		directionX = -1;
+		directionY = 0;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
+	{
+		directionY = 1;
+		directionX = 0;
+	}
 }
 
 void Game::update()
 {
+	if (directionX != 0 || directionY != 0) // check if it's moving
+		matrix[head.getX()][head.getY()].setFillColor(sf::Color(128, 235, 138));
+	head.x += directionX;
+	head.y += directionY;
+	//snake.drawToMatrix(matrix);
 	matrix[head.getX()][head.getY()].setFillColor(sf::Color(153, 51, 153));
+	sf::sleep(sf::milliseconds(100));
 }
 
 void Game::render()

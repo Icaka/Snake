@@ -9,7 +9,10 @@ private:
 	sf::RenderWindow window;
 	sf::RectangleShape matrix[MATRIX_SIZE][MATRIX_SIZE];
 	SnakePart head;
-
+	//Snake snake;
+	int directionX = 0;
+	int directionY = 0;
+protected:
 	void processEvents();
 	void update();
 	void render();
