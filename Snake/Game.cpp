@@ -92,12 +92,14 @@ void Game::update()
 	{
 		moveSnake();
 	}
+	/*
 	if (head.x == applePosX && head.y == applePosY)
 	{
 		matrix[applePosX][applePosY].setFillColor(sf::Color(128, 235, 138));
 		score++;
 		placeApple();
 	}
+	*/
 	//snake.drawToMatrix(matrix);
 	for(int i = 0; i < tailLength; i++)
 		matrix[tail[i].getX()][tail[i].getY()].setFillColor(sf::Color(100, 51, 153));
@@ -108,29 +110,47 @@ void Game::update()
 
 void Game::moveSnake()
 {
-	matrix[tail[0].getX()][tail[0].getY()].setFillColor(sf::Color(128, 235, 138));
-	for (int i = 0; i < tailLength - 1; i++)
+	if (head.x + directionX == applePosX && head.y + directionY == applePosY)
 	{
-		tail[i].x = tail[i + 1].x;
-		tail[i].y = tail[i + 1].y;
+		eatApple();
 	}
-	tail[tailLength - 1].x = head.x;
-	tail[tailLength - 1].y = head.y;
+	else {
+		matrix[tail[0].getX()][tail[0].getY()].setFillColor(sf::Color(128, 235, 138));
+		for (int i = 0; i < tailLength - 1; i++)
+		{
+			tail[i].x = tail[i + 1].x;
+			tail[i].y = tail[i + 1].y;
+		}
+		tail[tailLength - 1].x = head.x;
+		tail[tailLength - 1].y = head.y;
 
-	head.x += directionX;
-	head.y += directionY;
-	if (head.x < 0)
-		head.x = MATRIX_SIZE - 1;
-	if (head.x >= MATRIX_SIZE)
-		head.x = 0;
-	if (head.y < 0)
-		head.y = MATRIX_SIZE - 1;
-	if (head.y >= MATRIX_SIZE)
-		head.y = 0;
+		head.x += directionX;
+		head.y += directionY;
+		if (head.x < 0)
+			head.x = MATRIX_SIZE - 1;
+		if (head.x >= MATRIX_SIZE)
+			head.x = 0;
+		if (head.y < 0)
+			head.y = MATRIX_SIZE - 1;
+		if (head.y >= MATRIX_SIZE)
+			head.y = 0;
+	}
+}
+
+void Game::eatApple()
+{
+	tail[tailLength].x = head.x;
+	tail[tailLength].y = head.y;
+	tailLength++;
+	head.x = applePosX;
+	head.y = applePosY;
+	score += 10;
+	placeApple();
 }
 
 void Game::placeApple()
 {
+	//matrix[applePosX][applePosY].setFillColor(sf::Color(128, 235, 138));
 	applePosX = rand() % MATRIX_SIZE;
 	applePosY = rand() % MATRIX_SIZE;
 	//std::cout << "applepos: " << applePosX << ". " << applePosY << std::endl;

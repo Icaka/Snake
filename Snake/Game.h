@@ -3,6 +3,7 @@
 #include "SnakePart.h"
 const int MATRIX_SIZE = 15;
 const int STARTING_TAIL = 5;
+const int MAX_SNAKE_LENGTH = MATRIX_SIZE * MATRIX_SIZE;
 class Game
 {
 private:
@@ -10,7 +11,7 @@ private:
 	sf::RectangleShape matrix[MATRIX_SIZE][MATRIX_SIZE];
 	SnakePart head;
 	int tailLength = STARTING_TAIL;
-	SnakePart tail[STARTING_TAIL];
+	SnakePart tail[MAX_SNAKE_LENGTH];
 	//Snake snake;
 	int directionX;
 	int directionY;
@@ -25,6 +26,7 @@ protected:
 	void handlePlayerInput(sf::Keyboard::Key);
 	void moveSnake();
 	void placeApple();
+	void eatApple();
 public:
 	Game();
 	void run();
