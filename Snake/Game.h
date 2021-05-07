@@ -9,6 +9,8 @@ private:
 	sf::RenderWindow window;
 	sf::RectangleShape matrix[MATRIX_SIZE][MATRIX_SIZE];
 	SnakePart head;
+	int tailLength = 2;
+	SnakePart tail[2];
 	//Snake snake;
 	int directionX = 0;
 	int directionY = 0;
@@ -17,6 +19,7 @@ protected:
 	void update();
 	void render();
 	void handlePlayerInput(sf::Keyboard::Key);
+	void moveSnake();
 public:
 	Game();
 	void run();

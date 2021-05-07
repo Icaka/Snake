@@ -19,6 +19,8 @@ Game::Game() : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "My snakw")
 	}
 
 	head.setCoordinates(3, 3);
+	tail[0].setCoordinates(1, 3);
+	tail[1].setCoordinates(2, 3);
 }
 
 void Game::run()
@@ -78,10 +80,21 @@ void Game::handlePlayerInput(sf::Keyboard::Key key)
 void Game::update()
 {
 	if (directionX != 0 || directionY != 0) // check if it's moving
-		matrix[head.getX()][head.getY()].setFillColor(sf::Color(128, 235, 138));
+	{
+		matrix[tail[0].getX()][tail[0].getY()].setFillColor(sf::Color(128, 235, 138));
+		for (int i = 0; i < tailLength - 1; i++)
+		{
+			tail[i].x = tail[i + 1].x;
+			tail[i].y = tail[i + 1].y;
+		}
+		tail[tailLength - 1].x = head.x;
+		tail[tailLength - 1].y = head.y;
+	}
 	head.x += directionX;
 	head.y += directionY;
 	//snake.drawToMatrix(matrix);
+	for(int i = 0; i < tailLength; i++)
+		matrix[tail[i].getX()][tail[i].getY()].setFillColor(sf::Color(100, 51, 153));
 	matrix[head.getX()][head.getY()].setFillColor(sf::Color(153, 51, 153));
 	sf::sleep(sf::milliseconds(100));
 }
