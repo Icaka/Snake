@@ -3,7 +3,7 @@
 const unsigned WINDOW_WIDTH = 640;
 const unsigned WINDOW_HEIGHT = 480;
 const unsigned RECT_SIZE = 25;
-Game::Game() : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "My snakw")
+Game::Game() : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "My snake")
 {
 	directionX = 0;
 	directionY = 0;
@@ -38,6 +38,7 @@ void Game::run()
 		processEvents();
 		update();
 		render();
+		//sf::sleep(sf::milliseconds(100));
 	}
 }
 
@@ -92,15 +93,7 @@ void Game::update()
 	{
 		moveSnake();
 	}
-	/*
-	if (head.x == applePosX && head.y == applePosY)
-	{
-		matrix[applePosX][applePosY].setFillColor(sf::Color(128, 235, 138));
-		score++;
-		placeApple();
-	}
-	*/
-	//snake.drawToMatrix(matrix);
+	
 	for(int i = 0; i < tailLength; i++)
 		matrix[tail[i].getX()][tail[i].getY()].setFillColor(sf::Color(100, 51, 153));
 	matrix[head.getX()][head.getY()].setFillColor(sf::Color(153, 51, 153));
@@ -135,6 +128,12 @@ void Game::moveSnake()
 		if (head.y >= MATRIX_SIZE)
 			head.y = 0;
 	}
+	if (collides())
+	{
+		std::cout << "Game over" << std::endl;
+		sf::sleep(sf::milliseconds(800));
+		window.close();
+	}
 }
 
 void Game::eatApple()
@@ -162,6 +161,18 @@ void Game::placeApple()
 			placeApple();
 	}
 	
+}
+
+bool Game::collides()
+{
+	for (int i = 0; i < tailLength; i++)
+	{
+		if (head.getX() == tail[i].getX() && head.getY() == tail[i].getY())
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 void Game::render()

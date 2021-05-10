@@ -27,6 +27,7 @@ protected:
 	void moveSnake();
 	void placeApple();
 	void eatApple();
+	bool collides(); // checks for tail bites
 public:
 	Game();
 	void run();
