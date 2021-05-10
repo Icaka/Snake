@@ -67,23 +67,35 @@ void Game::handlePlayerInput(sf::Keyboard::Key key)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		directionY = -1; // up
-		directionX = 0;
+		if (directionY != 1)
+		{
+			directionY = -1; // up
+			directionX = 0;
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // right
 	{
-		directionX = 1;
-		directionY = 0;
+		if (directionX != -1)
+		{
+			directionX = 1;
+			directionY = 0;
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left 
 	{
-		directionX = -1;
-		directionY = 0;
+		if (directionX != 1)
+		{
+			directionX = -1;
+			directionY = 0;
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
 	{
-		directionY = 1;
-		directionX = 0;
+		if (directionY != -1)
+		{
+			directionY = 1;
+			directionX = 0;
+		}
 	}
 }
 
